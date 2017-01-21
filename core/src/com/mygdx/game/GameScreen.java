@@ -11,9 +11,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.utilities.Basic;
 import com.mygdx.game.utilities.Device;
 
-import static com.mygdx.game.utilities.Constants.WORLD_HEIGHT;
-import static com.mygdx.game.utilities.Constants.WORLD_WIDTH;
-
 /**
  * Created by peter on 1/19/17.
  */
@@ -28,6 +25,8 @@ public class GameScreen extends ScreenAdapter {
     private AssetManager assetManager;
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
+
+    private Pete pete;
 
 
     public GameScreen(TheGame theGame){
@@ -48,6 +47,8 @@ public class GameScreen extends ScreenAdapter {
             orthogonalTiledMapRenderer.setView(device.camera);
             device.disposer.add(orthogonalTiledMapRenderer,"tileMapRenderer");
         }
+        pete=new Pete(theGame);
+
     }
 
     @Override
@@ -57,29 +58,31 @@ public class GameScreen extends ScreenAdapter {
 
     public void drawDebug(){
         shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.YELLOW);
-        shapeRenderer.rect(0,0, WORLD_WIDTH, WORLD_HEIGHT);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        pete.drawDebug();
         shapeRenderer.end();
     }
 
     public void draw(){
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
+        orthogonalTiledMapRenderer.render();
+
         spriteBatch.begin();
+        pete.draw();
 
         spriteBatch.end();
-        orthogonalTiledMapRenderer.render();
     }
 
     @Override
     public void render(float delta){
-
+        pete.update(delta);
         viewport.apply(true);
 
         Basic.clearBackground(Color.CYAN);
-        drawDebug();
 
         draw();
+        drawDebug();
+
     }
 
 }

@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -38,6 +39,7 @@ public class LoadingScreen extends ScreenAdapter {
     @Override
     public void show(){
         assetManager.load("tiledMap.tmx", TiledMap.class);
+        assetManager.load("pete.png", Texture.class);
     }
 
     @Override
