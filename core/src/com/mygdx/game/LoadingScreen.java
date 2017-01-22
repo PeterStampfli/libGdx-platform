@@ -3,10 +3,9 @@ package com.mygdx.game;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.utilities.AbstractAssets;
 import com.mygdx.game.utilities.Basic;
 import com.mygdx.game.utilities.Constants;
 import com.mygdx.game.utilities.Device;
@@ -22,6 +21,7 @@ public class LoadingScreen extends ScreenAdapter {
     private Viewport viewport;
     private ShapeRenderer shapeRenderer;
     private AssetManager assetManager;
+    private AbstractAssets assets;
 
     private float progress;
     private static final float BAR_WIDTH=200;
@@ -34,12 +34,14 @@ public class LoadingScreen extends ScreenAdapter {
         shapeRenderer=device.shapeRenderer;
         viewport=device.viewport;
         assetManager=device.assetManager;
+        assets=theGame.assets;
     }
 
     @Override
     public void show(){
-        assetManager.load("tiledMap.tmx", TiledMap.class);
-        assetManager.load("pete.png", Texture.class);
+        assets.loadAll();
+        assets.loadTmxMap("tiledMap.tmx");
+        assets.loadTexture("pete.png");
     }
 
     @Override
@@ -63,7 +65,6 @@ public class LoadingScreen extends ScreenAdapter {
         shapeRenderer.rect(Constants.WORLD_WIDTH/2-BAR_WIDTH/2,Constants.WORLD_HEIGHT/2-BAR_HEIGHT/2,
                 progress*BAR_WIDTH, BAR_HEIGHT);
         shapeRenderer.end();
-
 
     }
 
