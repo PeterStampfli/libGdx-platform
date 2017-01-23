@@ -10,23 +10,28 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
  * Created by peter on 1/22/17.
  */
 
-public abstract class AbstractAssets {
-    private AssetManager assetManager;
+public class AbstractAssets {
+    AssetManager assetManager;
     private boolean hasTmxMapLoader=false;
 
-    public AbstractAssets(){}
-
-    public AbstractAssets(AssetManager assetManager){
+    public void setAssetManager(AssetManager assetManager){
         this.assetManager=assetManager;
     }
 
-    abstract public void getAll();
+    public void finishLoading(){
+        assetManager.finishLoading();
+    }
 
-    abstract public void loadAll();
+    public boolean update(){
+        return assetManager.update();
+    }
+
+    public float getProgress(){
+        return assetManager.getProgress();
+    }
 
     public void loadTexture(String name){
         assetManager.load(name, Texture.class);
-
     }
 
     public void loadTmxMap(String name){
@@ -36,5 +41,7 @@ public abstract class AbstractAssets {
         }
         assetManager.load(name,TiledMap.class);
     }
+
+
 
 }

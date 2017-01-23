@@ -21,10 +21,13 @@ public class Device implements Disposable{
     public AssetManager assetManager;
     public OrthographicCamera camera;
     public Viewport viewport;
+    public Assets assets;
 
     public Device(){
         disposer=new Disposer("Device");
         assetManager=new AssetManager();
+        assets=new Assets();
+        assets.setAssetManager(assetManager);
         disposer.add(assetManager,"assetManager");
         camera=new OrthographicCamera();
     }

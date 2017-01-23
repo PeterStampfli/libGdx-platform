@@ -1,6 +1,7 @@
 package com.mygdx.game.utilities;
 
-import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 
 /**
  * Created by peter on 1/22/17.
@@ -8,13 +9,18 @@ import com.badlogic.gdx.assets.AssetManager;
 
 public class Assets extends AbstractAssets {
 
-    public Assets(AssetManager assetManager){
-        super(assetManager);
+    public TiledMap tiledMap;
+    public Texture acornTexture;
+
+    public void load(){
+        loadTmxMap("tiledMap.tmx");
+        loadTexture("pete.png");
+        loadTexture("acorn.png");
+
     }
 
-    @Override
-    public void loadAll(){}
-
-    @Override
-    public void getAll(){}
+    public void get(){
+        tiledMap=assetManager.get("tiledMap.tmx");
+        acornTexture=assetManager.get("acorn.png");
+    }
 }

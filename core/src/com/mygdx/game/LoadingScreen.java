@@ -5,7 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.utilities.AbstractAssets;
+import com.mygdx.game.utilities.Assets;
 import com.mygdx.game.utilities.Basic;
 import com.mygdx.game.utilities.Constants;
 import com.mygdx.game.utilities.Device;
@@ -21,7 +21,7 @@ public class LoadingScreen extends ScreenAdapter {
     private Viewport viewport;
     private ShapeRenderer shapeRenderer;
     private AssetManager assetManager;
-    private AbstractAssets assets;
+    private Assets assets;
 
     private float progress;
     private static final float BAR_WIDTH=200;
@@ -33,15 +33,8 @@ public class LoadingScreen extends ScreenAdapter {
         device=theGame.device.createShapeRenderer();
         shapeRenderer=device.shapeRenderer;
         viewport=device.viewport;
-        assetManager=device.assetManager;
-        assets=theGame.assets;
-    }
-
-    @Override
-    public void show(){
-        assets.loadAll();
-        assets.loadTmxMap("tiledMap.tmx");
-        assets.loadTexture("pete.png");
+        assets=device.assets;
+        assets.load();
     }
 
     @Override
@@ -51,11 +44,12 @@ public class LoadingScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta){
-        if (assetManager.update()){
+        if (assets.update()){
+            assets.get();
             theGame.setScreen(theGame.gameScreen);
         }
         else {
-            progress=assetManager.getProgress();
+            progress=assets.getProgress();
         }
 
         Basic.clearBackground(Color.DARK_GRAY);

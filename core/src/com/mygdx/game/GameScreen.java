@@ -1,13 +1,12 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.utilities.Assets;
 import com.mygdx.game.utilities.Basic;
 import com.mygdx.game.utilities.Device;
 
@@ -22,11 +21,11 @@ public class GameScreen extends ScreenAdapter {
     private Viewport viewport;
     private ShapeRenderer shapeRenderer;
     private SpriteBatch spriteBatch;
-    private AssetManager assetManager;
-    private TiledMap tiledMap;
+    private Assets assets;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
 
     private Pete pete;
+    private Acorn acorn;
 
 
     public GameScreen(TheGame theGame){
@@ -35,14 +34,14 @@ public class GameScreen extends ScreenAdapter {
         shapeRenderer=device.shapeRenderer;
         spriteBatch=device.spriteBatch;
         viewport=device.viewport;
-        assetManager=device.assetManager;
+        assets=device.assets;
+        acorn=new Acorn(100,100,device);
     }
 
     @Override
     public void show(){
-        tiledMap=assetManager.get("tiledMap.tmx");
         if (orthogonalTiledMapRenderer==null) {
-            orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, spriteBatch);
+            orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(assets.tiledMap, spriteBatch);
             viewport.apply(true);
             orthogonalTiledMapRenderer.setView(device.camera);
             device.disposer.add(orthogonalTiledMapRenderer,"tileMapRenderer");
@@ -69,13 +68,14 @@ public class GameScreen extends ScreenAdapter {
 
         spriteBatch.begin();
         pete.draw();
-
+        acorn.draw();
         spriteBatch.end();
     }
 
     @Override
     public void render(float delta){
         pete.update(delta);
+        pete.handleCollision();
         viewport.apply(true);
 
         Basic.clearBackground(Color.CYAN);
