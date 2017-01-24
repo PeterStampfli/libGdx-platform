@@ -30,8 +30,8 @@ public class Pete {
     private ShapeRenderer shapeRenderer;
     private SpriteBatch spriteBatch;
     Assets assets;
-    private final Rectangle collisionRectangle;
-    private Vector2 position;
+    public final Rectangle collisionRectangle;
+    public Vector2 position;
     private Vector2 speed;
 
     private final Animation walking;
@@ -82,6 +82,9 @@ public class Pete {
             speed.x = 0;
         }
         if (input.isKeyPressed(Input.Keys.SPACE) && canJump) {
+            if (speed.y<Constants.PETE_Y_SPEED){
+                assets.jumpSound.play();
+            }
             speed.y = Constants.PETE_Y_SPEED;
             jumpedDistance += speed.y * delta;
             canJump = (jumpedDistance < Constants.PETE_MAX_JUMPDISTANCE);
@@ -90,7 +93,9 @@ public class Pete {
         }
         position.mulAdd(speed, delta);
 
-        position.x = MathUtils.clamp(position.x, 0, Constants.WORLD_WIDTH - Constants.PETE_WIDTH);
+        position.x=MathUtils.clamp(position.x,0f,theGame.gameScreen.levelWidth-Constants.PETE_WIDTH);
+
+
         if (position.y < 0) {
             position.y = 0;
             hasLanded();
