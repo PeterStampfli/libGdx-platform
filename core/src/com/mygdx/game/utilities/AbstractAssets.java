@@ -14,10 +14,13 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 public class AbstractAssets {
     AssetManager assetManager;
+    public SoundManager soundManager;
+
     private boolean hasTmxMapLoader=false;
 
     public void setAssetManager(AssetManager assetManager){
         this.assetManager=assetManager;
+        soundManager=new SoundManager(assetManager);
     }
 
     public void finishLoading(){

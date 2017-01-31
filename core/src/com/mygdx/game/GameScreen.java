@@ -55,7 +55,7 @@ public class GameScreen extends ScreenAdapter {
         TiledMapTileLayer tiledMapTileLayer=(TiledMapTileLayer) assets.tiledMap.getLayers().get(0);
         levelWidth=tiledMapTileLayer.getWidth()*tiledMapTileLayer.getTileWidth();
         assets.peteMusic.setLooping(true);
-        assets.peteMusic.play();
+       // assets.peteMusic.play();
     }
 
     @Override
