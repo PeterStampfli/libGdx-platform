@@ -44,7 +44,7 @@ public class Acorns {
             position=iter.next();
             collisionRectangle.setPosition(position.x,position.y);
             if (peteRectangle.overlaps(collisionRectangle)){
-                device.assets.soundManager.play("acorn");
+                device.assets.playSound("acorn");
                 iter.remove();
             }
         }

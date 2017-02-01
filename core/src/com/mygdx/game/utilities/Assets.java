@@ -18,7 +18,7 @@ public class Assets extends AbstractAssets {
         loadTmxMap("tiledMap.tmx");
         loadTexture("pete.png");
         loadTexture("acorn.png");
-        soundManager.add("jump","acorn");
+        addSounds("jump","acorn");
         loadMusic("peteTheme.mp3");
 
     }
@@ -27,7 +27,7 @@ public class Assets extends AbstractAssets {
         tiledMap=assetManager.get("tiledMap.tmx");
         acornTexture=assetManager.get("acorn.png");
 
-        soundManager.getAll();
+        getAllSounds();
 
         peteMusic=assetManager.get("peteTheme.mp3");
     }

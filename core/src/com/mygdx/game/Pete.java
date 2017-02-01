@@ -17,7 +17,6 @@ import com.mygdx.game.utilities.Assets;
 import com.mygdx.game.utilities.Basic;
 import com.mygdx.game.utilities.Constants;
 import com.mygdx.game.utilities.Device;
-import com.mygdx.game.utilities.SoundManager;
 
 import static com.badlogic.gdx.Gdx.input;
 
@@ -31,7 +30,6 @@ public class Pete {
     private ShapeRenderer shapeRenderer;
     private SpriteBatch spriteBatch;
     Assets assets;
-    SoundManager soundManager;
     public final Rectangle collisionRectangle;
     public Vector2 position;
     private Vector2 speed;
@@ -50,7 +48,6 @@ public class Pete {
         this.theGame = theGame;
         device = theGame.device;
         assets = device.assets;
-        soundManager=assets.soundManager;
         shapeRenderer = device.shapeRenderer;
         spriteBatch = device.spriteBatch;
         collisionRectangle = new Rectangle(0, 0, Constants.PETE_WIDTH, Constants.PETE_HEIGHT);
@@ -86,7 +83,7 @@ public class Pete {
         }
         if (input.isKeyPressed(Input.Keys.SPACE) && canJump) {
             if (speed.y<Constants.PETE_Y_SPEED){
-                soundManager.play("jump");
+                assets.playSound("jump");
             }
             speed.y = Constants.PETE_Y_SPEED;
             jumpedDistance += speed.y * delta;
